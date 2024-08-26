@@ -2611,7 +2611,7 @@ class Kconfig(object):
             else:
                 break
 
-        if s.isspace():
+        if not s or s.isspace():
             # We also accept a bare macro on a line (e.g.
             # $(warning-if,$(foo),ops)), provided it expands to a blank string
             return
