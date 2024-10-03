@@ -20,9 +20,9 @@ setuptools.setup(
         encoding="utf-8"
     ).read(),
 
-    url="https://github.com/ulfalizer/Kconfiglib",
-    author='Ulf "Ulfalizer" Magnusson',
-    author_email="ulfalizer@gmail.com",
+    url="https://github.com/zephyrproject-rtos/Kconfiglib",
+    author='Zephyr Project',
+    author_email="ci@zephyrproject.org",
     keywords="kconfig, kbuild, menuconfig, configuration-management",
     license="ISC",
 
@@ -68,8 +68,8 @@ setuptools.setup(
     python_requires=">=2.7,!=3.0.*,!=3.1.*",
 
     project_urls={
-        "GitHub repository": "https://github.com/ulfalizer/Kconfiglib",
-        "Examples": "https://github.com/ulfalizer/Kconfiglib/tree/master/examples",
+        "GitHub repository": "https://github.com/zephyrproject-rtos/Kconfiglib",
+        "Examples": "https://github.com/zephyrproject-rtos/Kconfiglib/tree/master/examples",
     },
 
     classifiers=[
