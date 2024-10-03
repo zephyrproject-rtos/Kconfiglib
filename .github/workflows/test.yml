@@ -46,7 +46,7 @@ jobs:
           builder: ubuntu-20.04
         - python: '3.7'
           os: macOS
-          builder: macos-13
+          builder: macos-12
         # - python: '3.7'
         #   os: Windows
         #   builder: windows-2019
