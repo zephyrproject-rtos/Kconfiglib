@@ -32,8 +32,7 @@
 #
 # pypy works too, and runs most tests much faster than CPython.
 #
-# All tests should pass. Report regressions to ulfalizer a.t Google's email
-# service.
+# All tests should pass. Report regressions on the GitHub page.
 
 import difflib
 import errno
