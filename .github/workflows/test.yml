@@ -1,0 +1,148 @@
+name: Test
+
+on:
+  push:
+    branches:
+    - main
+    - v*-branch
+  pull_request:
+    branches:
+    - main
+    - v*-branch
+  workflow_call:
+
+concurrency:
+  group: ${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: Test (Python ${{ matrix.target.python }}, ${{ matrix.target.os }})
+    runs-on: ${{ matrix.target.builder }}
+
+    defaults:
+      run:
+        shell: bash
+
+    strategy:
+      fail-fast: false
+      matrix:
+        # NOTE: Testing of the Windows targets are currently disabled because
+        #       the test script is simply not ready for it.
+        target:
+        # Python 3.6
+        - python: '3.6'
+          os: Linux
+          builder: ubuntu-20.04
+        - python: '3.6'
+          os: macOS
+          builder: macos-13
+        # - python: '3.6'
+        #   os: Windows
+        #   builder: windows-2019
+        # Python 3.7
+        - python: '3.7'
+          os: Linux
+          builder: ubuntu-20.04
+        - python: '3.7'
+          os: macOS
+          builder: macos-13
+        # - python: '3.7'
+        #   os: Windows
+        #   builder: windows-2019
+        # Python 3.8
+        - python: '3.8'
+          os: Linux
+          builder: ubuntu-20.04
+        - python: '3.8'
+          os: macOS
+          builder: macos-13
+        # - python: '3.8'
+        #   os: Windows
+        #   builder: windows-2019
+        # Python 3.9
+        - python: '3.9'
+          os: Linux
+          builder: ubuntu-20.04
+        - python: '3.9'
+          os: macOS
+          builder: macos-13
+        # - python: '3.9'
+        #   os: Windows
+        #   builder: windows-2019
+        # Python 3.10
+        - python: '3.10'
+          os: Linux
+          builder: ubuntu-22.04
+        - python: '3.10'
+          os: macOS
+          builder: macos-14
+        # - python: '3.10'
+        #   os: Windows
+        #   builder: windows-2022
+        # Python 3.11
+        - python: '3.11'
+          os: Linux
+          builder: ubuntu-22.04
+        - python: '3.11'
+          os: macOS
+          builder: macos-14
+        # - python: '3.11'
+        #   os: Windows
+        #   builder: windows-2022
+        # Python 3.12
+        - python: '3.12'
+          os: Linux
+          builder: ubuntu-22.04
+        - python: '3.12'
+          os: macOS
+          builder: macos-14
+        # - python: '3.12'
+        #   os: Windows
+        #   builder: windows-2022
+
+    steps:
+    - name: Set up environment
+      run: |
+        if [ "${{ runner.os }}" == "Windows" ]; then
+          # Disable file name validation on Windows because Linux source tree
+          # contains potentially problematic file names.
+          git config --global core.protectNTFS false
+        fi
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: ${{ matrix.target.python }}
+
+    - name: Check Python version
+      run: |
+        set -x
+        python --version
+        pip --version
+        python -c "import platform; print(platform.architecture())"
+
+    - name: Install Python dependencies
+      run: |
+        pip install --user setuptools wheel
+
+    - name: Check out Linux source code
+      uses: actions/checkout@v4
+      # On Windows, checkout of 'aux.c' is expected to fail because ... Windows.
+      continue-on-error: true
+      with:
+        repository: torvalds/linux
+        ref: v5.4
+
+    - name: Check out Kconfiglib source code
+      uses: actions/checkout@v4
+      with:
+        path: Kconfiglib
+
+    - name: Apply Linux Kconfig Makefile patch
+      run: |
+        git apply Kconfiglib/makefile.patch
+
+    - name: Run testsuite
+      run: |
+        Kconfiglib/tests/reltest python
