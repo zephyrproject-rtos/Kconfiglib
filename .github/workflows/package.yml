@@ -12,7 +12,7 @@ on:
   workflow_call:
 
 concurrency:
-  group: ${{ github.ref }}
+  group: package-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
