@@ -20,7 +20,13 @@ test_script() {
     fi
 }
 
-for py in python2 python3; do
+if [ $# == "0" ]; then
+    py_execs="python2 python3"
+else
+    py_execs=$@
+fi
+
+for py in $py_execs; do
     echo -e "\n================= Test suite with $py =================\n"
 
     if ! $py Kconfiglib/testsuite.py; then
