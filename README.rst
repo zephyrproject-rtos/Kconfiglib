@@ -39,7 +39,7 @@ enough functionality to also work well as a standalone Kconfig implementation
 and `Kconfig extensions`_).
 
 The entire library is contained in `kconfiglib.py
-<https://github.com/ulfalizer/Kconfiglib/blob/master/kconfiglib.py>`_. The
+<https://github.com/zephyrproject-rtos/Kconfiglib/blob/master/kconfiglib.py>`_. The
 bundled scripts are implemented on top of it. Implementing your own scripts
 should be relatively easy, if needed.
 
@@ -91,31 +91,31 @@ The ``pip`` installation will give you both the base library and the following
 executables. All but two (``genconfig`` and ``setconfig``) mirror functionality
 available in the C tools.
 
-- `menuconfig <https://github.com/ulfalizer/Kconfiglib/blob/master/menuconfig.py>`_
+- `menuconfig <https://github.com/zephyrproject-rtos/Kconfiglib/blob/master/menuconfig.py>`_
 
-- `guiconfig <https://github.com/ulfalizer/Kconfiglib/blob/master/guiconfig.py>`_
+- `guiconfig <https://github.com/zephyrproject-rtos/Kconfiglib/blob/master/guiconfig.py>`_
 
-- `oldconfig <https://github.com/ulfalizer/Kconfiglib/blob/master/oldconfig.py>`_
+- `oldconfig <https://github.com/zephyrproject-rtos/Kconfiglib/blob/master/oldconfig.py>`_
 
-- `olddefconfig <https://github.com/ulfalizer/Kconfiglib/blob/master/olddefconfig.py>`_
+- `olddefconfig <https://github.com/zephyrproject-rtos/Kconfiglib/blob/master/olddefconfig.py>`_
 
-- `savedefconfig <https://github.com/ulfalizer/Kconfiglib/blob/master/savedefconfig.py>`_
+- `savedefconfig <https://github.com/zephyrproject-rtos/Kconfiglib/blob/master/savedefconfig.py>`_
 
-- `defconfig <https://github.com/ulfalizer/Kconfiglib/blob/master/defconfig.py>`_
+- `defconfig <https://github.com/zephyrproject-rtos/Kconfiglib/blob/master/defconfig.py>`_
 
-- `alldefconfig <https://github.com/ulfalizer/Kconfiglib/blob/master/alldefconfig.py>`_
+- `alldefconfig <https://github.com/zephyrproject-rtos/Kconfiglib/blob/master/alldefconfig.py>`_
 
-- `allnoconfig <https://github.com/ulfalizer/Kconfiglib/blob/master/allnoconfig.py>`_
+- `allnoconfig <https://github.com/zephyrproject-rtos/Kconfiglib/blob/master/allnoconfig.py>`_
 
-- `allmodconfig <https://github.com/ulfalizer/Kconfiglib/blob/master/allmodconfig.py>`_
+- `allmodconfig <https://github.com/zephyrproject-rtos/Kconfiglib/blob/master/allmodconfig.py>`_
 
-- `allyesconfig <https://github.com/ulfalizer/Kconfiglib/blob/master/allyesconfig.py>`_
+- `allyesconfig <https://github.com/zephyrproject-rtos/Kconfiglib/blob/master/allyesconfig.py>`_
 
-- `listnewconfig <https://github.com/ulfalizer/Kconfiglib/blob/master/listnewconfig.py>`_
+- `listnewconfig <https://github.com/zephyrproject-rtos/Kconfiglib/blob/master/listnewconfig.py>`_
 
-- `genconfig <https://github.com/ulfalizer/Kconfiglib/blob/master/genconfig.py>`_
+- `genconfig <https://github.com/zephyrproject-rtos/Kconfiglib/blob/master/genconfig.py>`_
 
-- `setconfig <https://github.com/ulfalizer/Kconfiglib/blob/master/setconfig.py>`_
+- `setconfig <https://github.com/zephyrproject-rtos/Kconfiglib/blob/master/setconfig.py>`_
 
 ``genconfig`` is intended to be run at build time. It generates a C header from
 the configuration and (optionally) information that can be used to rebuild only
@@ -135,18 +135,18 @@ All releases have a corresponding tag in the git repository, e.g. ``v14.1.0``
 `Semantic versioning <http://semver.org/>`_ is used. There's been ten small
 changes to the behavior of the API, a Windows packaging change, and a hashbang
 change to use ``python3``
-(`1 <https://github.com/ulfalizer/Kconfiglib/commit/e8b4ecb6ff6ccc1c7be0818314fbccda2ef2b2ee>`_,
-`2 <https://github.com/ulfalizer/Kconfiglib/commit/db633015a4d7b0ba1e882f665e191f350932b2af>`_,
-`3 <https://github.com/ulfalizer/Kconfiglib/commit/8983f7eb297dd614faf0beee3129559bc8ba338e>`_,
-`4 <https://github.com/ulfalizer/Kconfiglib/commit/cbf32e29a130d22bc734b7778e6304ac9df2a3e8>`_,
-`5 <https://github.com/ulfalizer/Kconfiglib/commit/eb6c21a9b33a2d6e2bed9882d4f930d0cab2f03b>`_,
-`6 <https://github.com/ulfalizer/Kconfiglib/commit/c19fc11355b13d75d97286402c7a933fb23d3b70>`_,
-`7 <https://github.com/ulfalizer/Kconfiglib/commit/7a428aa415606820a44291f475248b08e3952c4b>`_,
-`8 <https://github.com/ulfalizer/Kconfiglib/commit/f247ddf618ad29718e5efd3e69f8baf75d4d347b>`_,
-`9 <https://github.com/ulfalizer/Kconfiglib/commit/4fed39d9271ceb68be4157ab3f96a45b94f77dc0>`_,
-`10 <https://github.com/ulfalizer/Kconfiglib/commit/55bc8c380869ea663092212e8fe388ad7abae596>`_,
-`Windows packaging change <https://github.com/ulfalizer/Kconfiglib/commit/21b4c1e3b6e2867b9a0788d21a358f6b1f581d86>`_,
-`Python 3 hashbang change <https://github.com/ulfalizer/Kconfiglib/commit/9e0a8d29fa76adcb3f27bb2e20f16fefc2a8591e>`_),
+(`1 <https://github.com/zephyrproject-rtos/Kconfiglib/commit/e8b4ecb6ff6ccc1c7be0818314fbccda2ef2b2ee>`_,
+`2 <https://github.com/zephyrproject-rtos/Kconfiglib/commit/db633015a4d7b0ba1e882f665e191f350932b2af>`_,
+`3 <https://github.com/zephyrproject-rtos/Kconfiglib/commit/8983f7eb297dd614faf0beee3129559bc8ba338e>`_,
+`4 <https://github.com/zephyrproject-rtos/Kconfiglib/commit/cbf32e29a130d22bc734b7778e6304ac9df2a3e8>`_,
+`5 <https://github.com/zephyrproject-rtos/Kconfiglib/commit/eb6c21a9b33a2d6e2bed9882d4f930d0cab2f03b>`_,
+`6 <https://github.com/zephyrproject-rtos/Kconfiglib/commit/c19fc11355b13d75d97286402c7a933fb23d3b70>`_,
+`7 <https://github.com/zephyrproject-rtos/Kconfiglib/commit/7a428aa415606820a44291f475248b08e3952c4b>`_,
+`8 <https://github.com/zephyrproject-rtos/Kconfiglib/commit/f247ddf618ad29718e5efd3e69f8baf75d4d347b>`_,
+`9 <https://github.com/zephyrproject-rtos/Kconfiglib/commit/4fed39d9271ceb68be4157ab3f96a45b94f77dc0>`_,
+`10 <https://github.com/zephyrproject-rtos/Kconfiglib/commit/55bc8c380869ea663092212e8fe388ad7abae596>`_,
+`Windows packaging change <https://github.com/zephyrproject-rtos/Kconfiglib/commit/21b4c1e3b6e2867b9a0788d21a358f6b1f581d86>`_,
+`Python 3 hashbang change <https://github.com/zephyrproject-rtos/Kconfiglib/commit/9e0a8d29fa76adcb3f27bb2e20f16fefc2a8591e>`_),
 which is why the major version is at 14 rather than 2. I do major version bumps
 for all behavior changes, even tiny ones, and most of these were fixes for baby
 issues in the early days of the Kconfiglib 2 API.
@@ -162,7 +162,7 @@ unless a package like `windows-curses
 Installation for the Linux kernel
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-See the module docstring at the top of `kconfiglib.py <https://github.com/ulfalizer/Kconfiglib/blob/master/kconfiglib.py>`_.
+See the module docstring at the top of `kconfiglib.py <https://github.com/zephyrproject-rtos/Kconfiglib/blob/master/kconfiglib.py>`_.
 
 Python version compatibility (2.7/3.2+)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -208,7 +208,7 @@ Getting started
    
    Adding new configuration output formats should be relatively straightforward.
    See the implementation of ``write_config()`` in `kconfiglib.py
-   <https://github.com/ulfalizer/Kconfiglib/blob/master/kconfiglib.py>`_.
+   <https://github.com/zephyrproject-rtos/Kconfiglib/blob/master/kconfiglib.py>`_.
    The documentation for the ``Symbol.config_string`` property has some tips as
    well.
    
@@ -261,7 +261,7 @@ Incremental building
 ~~~~~~~~~~~~~~~~~~~~
 
 See the docstring for ``Kconfig.sync_deps()`` in `kconfiglib.py
-<https://github.com/ulfalizer/Kconfiglib/blob/master/kconfiglib.py>`_ for hints
+<https://github.com/zephyrproject-rtos/Kconfiglib/blob/master/kconfiglib.py>`_ for hints
 on implementing incremental builds (rebuilding just source files that reference
 changed configuration values).
 
@@ -295,7 +295,7 @@ Documentation for other modules can be viewed in the same way (though a plain
 
 A good starting point for learning the library is to read the module docstring
 (which you could also just read directly at the beginning of `kconfiglib.py
-<https://github.com/ulfalizer/Kconfiglib/blob/master/kconfiglib.py>`_). It
+<https://github.com/zephyrproject-rtos/Kconfiglib/blob/master/kconfiglib.py>`_). It
 gives an introduction to symbol values, the menu tree, and expressions.
 
 After reading the module docstring, a good next step is to read the ``Kconfig``
@@ -312,9 +312,9 @@ Kconfiglib can do the following, among other things:
 - **Programmatically get and set symbol values**
 
   See `allnoconfig.py
-  <https://github.com/ulfalizer/Kconfiglib/blob/master/allnoconfig.py>`_ and
+  <https://github.com/zephyrproject-rtos/Kconfiglib/blob/master/allnoconfig.py>`_ and
   `allyesconfig.py
-  <https://github.com/ulfalizer/Kconfiglib/blob/master/allyesconfig.py>`_,
+  <https://github.com/zephyrproject-rtos/Kconfiglib/blob/master/allyesconfig.py>`_,
   which are automatically verified to produce identical output to the standard
   ``make allnoconfig`` and ``make allyesconfig``.
 
@@ -366,10 +366,10 @@ Kconfiglib can do the following, among other things:
   implement menuconfig-like functionality.
   
   See `menuconfig.py
-  <https://github.com/ulfalizer/Kconfiglib/blob/master/menuconfig.py>`_/`guiconfig.py
-  <https://github.com/ulfalizer/Kconfiglib/blob/master/guiconfig.py>`_ and the
+  <https://github.com/zephyrproject-rtos/Kconfiglib/blob/master/menuconfig.py>`_/`guiconfig.py
+  <https://github.com/zephyrproject-rtos/Kconfiglib/blob/master/guiconfig.py>`_ and the
   minimalistic `menuconfig_example.py
-  <https://github.com/ulfalizer/Kconfiglib/blob/master/examples/menuconfig_example.py>`_
+  <https://github.com/zephyrproject-rtos/Kconfiglib/blob/master/examples/menuconfig_example.py>`_
   example.
 
 Kconfig extensions
@@ -393,7 +393,7 @@ The following Kconfig extensions are available:
   format).
 
   See the *Kconfig extensions* section in the
-  `kconfiglib.py <https://github.com/ulfalizer/Kconfiglib/blob/master/kconfiglib.py>`_
+  `kconfiglib.py <https://github.com/zephyrproject-rtos/Kconfiglib/blob/master/kconfiglib.py>`_
   module docstring for more information.
 
 - ``def_int``, ``def_hex``, and ``def_string`` are available in addition to
@@ -448,13 +448,13 @@ Other features
 - **Single-file implementation**
   
   The entire library is contained in `kconfiglib.py
-  <https://github.com/ulfalizer/Kconfiglib/blob/master/kconfiglib.py>`_.
+  <https://github.com/zephyrproject-rtos/Kconfiglib/blob/master/kconfiglib.py>`_.
 
   The tools implemented on top of it are one file each.
 
 - **Robust and highly compatible with the C Kconfig tools**
   
-  The `test suite <https://github.com/ulfalizer/Kconfiglib/blob/master/testsuite.py>`_
+  The `test suite <https://github.com/zephyrproject-rtos/Kconfiglib/blob/master/testsuite.py>`_
   automatically compares output from Kconfiglib and the C tools
   by diffing the generated ``.config`` files for the real kernel Kconfig and
   defconfig files, for all ARCHes.
@@ -468,7 +468,7 @@ Other features
 - **Not horribly slow despite being a pure Python implementation**
   
   The `allyesconfig.py
-  <https://github.com/ulfalizer/Kconfiglib/blob/master/allyesconfig.py>`_
+  <https://github.com/zephyrproject-rtos/Kconfiglib/blob/master/allyesconfig.py>`_
   script currently runs in about 1.3 seconds on the Linux kernel on a Core i7
   2600K (with a warm file cache), including the ``make`` overhead from ``make
   scriptconfig``. Note that the Linux kernel Kconfigs are absolutely massive
@@ -517,13 +517,13 @@ Menuconfig interfaces
 
 Three configuration interfaces are currently available:
 
-- `menuconfig.py <https://github.com/ulfalizer/Kconfiglib/blob/master/menuconfig.py>`_
+- `menuconfig.py <https://github.com/zephyrproject-rtos/Kconfiglib/blob/master/menuconfig.py>`_
   is a terminal-based configuration interface implemented using the standard
   Python ``curses`` module. ``xconfig`` features like showing invisible symbols and
   showing symbol names are included, and it's possible to jump directly to a symbol
   in the menu tree (even if it's currently invisible).
   
-  .. image:: https://raw.githubusercontent.com/ulfalizer/Kconfiglib/screenshots/screenshots/menuconfig.gif
+  .. image:: https://raw.githubusercontent.com/zephyrproject-rtos/Kconfiglib/screenshots/screenshots/menuconfig.gif
 
   *There is now also a show-help mode that shows the help text of the currently
   selected symbol in the help window at the bottom.*
@@ -547,11 +547,11 @@ Three configuration interfaces are currently available:
   <https://www.lfd.uci.edu/~gohlke/pythonlibs/#curses>`_.
 
   See the docstring at the top of `menuconfig.py
-  <https://github.com/ulfalizer/Kconfiglib/blob/master/menuconfig.py>`_ for
+  <https://github.com/zephyrproject-rtos/Kconfiglib/blob/master/menuconfig.py>`_ for
   more information about the terminal menuconfig implementation.
 
 - `guiconfig.py
-  <https://github.com/ulfalizer/Kconfiglib/blob/master/guiconfig.py>`_ is a
+  <https://github.com/zephyrproject-rtos/Kconfiglib/blob/master/guiconfig.py>`_ is a
   graphical configuration interface written in `Tkinter
   <https://docs.python.org/3/library/tkinter.html>`_. Like ``menuconfig.py``,
   it supports showing all symbols (with invisible symbols in red) and jumping
@@ -579,13 +579,13 @@ Three configuration interfaces are currently available:
 
   Screenshot below, with show-all mode enabled and the jump-to dialog open:
 
-  .. image:: https://raw.githubusercontent.com/ulfalizer/Kconfiglib/screenshots/screenshots/guiconfig.png
+  .. image:: https://raw.githubusercontent.com/zephyrproject-rtos/Kconfiglib/screenshots/screenshots/guiconfig.png
 
   To avoid having to carry around a bunch of GIFs, the image data is embedded
   in ``guiconfig.py``. To use separate GIF files instead, change
   ``_USE_EMBEDDED_IMAGES`` to ``False`` in ``guiconfig.py``. The image files
   can be found in the `screenshots
-  <https://github.com/ulfalizer/Kconfiglib/tree/screenshots/guiconfig>`_
+  <https://github.com/zephyrproject-rtos/Kconfiglib/tree/screenshots/guiconfig>`_
   branch.
 
   I did my best with the images, but some are definitely only art adjacent.
@@ -610,23 +610,23 @@ Examples
 Example scripts
 ~~~~~~~~~~~~~~~
 
-The `examples/ <https://github.com/ulfalizer/Kconfiglib/blob/master/examples>`_ directory contains some simple example scripts. Among these are the following ones. Make sure you run them with the latest version of Kconfiglib, as they might make use of newly added features.
+The `examples/ <https://github.com/zephyrproject-rtos/Kconfiglib/blob/master/examples>`_ directory contains some simple example scripts. Among these are the following ones. Make sure you run them with the latest version of Kconfiglib, as they might make use of newly added features.
 
-- `eval_expr.py <https://github.com/ulfalizer/Kconfiglib/blob/master/examples/eval_expr.py>`_ evaluates an expression in the context of a configuration.
+- `eval_expr.py <https://github.com/zephyrproject-rtos/Kconfiglib/blob/master/examples/eval_expr.py>`_ evaluates an expression in the context of a configuration.
 
-- `find_symbol.py <https://github.com/ulfalizer/Kconfiglib/blob/master/examples/find_symbol.py>`_ searches through expressions to find references to a symbol, also printing a "backtrace" with parents for each reference found.
+- `find_symbol.py <https://github.com/zephyrproject-rtos/Kconfiglib/blob/master/examples/find_symbol.py>`_ searches through expressions to find references to a symbol, also printing a "backtrace" with parents for each reference found.
 
-- `help_grep.py <https://github.com/ulfalizer/Kconfiglib/blob/master/examples/help_grep.py>`_ searches for a string in all help texts.
+- `help_grep.py <https://github.com/zephyrproject-rtos/Kconfiglib/blob/master/examples/help_grep.py>`_ searches for a string in all help texts.
 
-- `print_tree.py <https://github.com/ulfalizer/Kconfiglib/blob/master/examples/print_tree.py>`_ prints a tree of all configuration items.
+- `print_tree.py <https://github.com/zephyrproject-rtos/Kconfiglib/blob/master/examples/print_tree.py>`_ prints a tree of all configuration items.
 
-- `print_config_tree.py <https://github.com/ulfalizer/Kconfiglib/blob/master/examples/print_config_tree.py>`_ is similar to ``print_tree.py``, but dumps the tree as it would appear in ``menuconfig``, including values. This can be handy for visually diffing between ``.config`` files and different versions of ``Kconfig`` files.
+- `print_config_tree.py <https://github.com/zephyrproject-rtos/Kconfiglib/blob/master/examples/print_config_tree.py>`_ is similar to ``print_tree.py``, but dumps the tree as it would appear in ``menuconfig``, including values. This can be handy for visually diffing between ``.config`` files and different versions of ``Kconfig`` files.
 
-- `list_undefined.py <https://github.com/ulfalizer/Kconfiglib/blob/master/examples/list_undefined.py>`_ finds references to symbols that are not defined by any architecture in the Linux kernel.
+- `list_undefined.py <https://github.com/zephyrproject-rtos/Kconfiglib/blob/master/examples/list_undefined.py>`_ finds references to symbols that are not defined by any architecture in the Linux kernel.
 
-- `merge_config.py <https://github.com/ulfalizer/Kconfiglib/blob/master/examples/merge_config.py>`_ merges configuration fragments to produce a complete .config, similarly to ``scripts/kconfig/merge_config.sh`` from the kernel.
+- `merge_config.py <https://github.com/zephyrproject-rtos/Kconfiglib/blob/master/examples/merge_config.py>`_ merges configuration fragments to produce a complete .config, similarly to ``scripts/kconfig/merge_config.sh`` from the kernel.
 
-- `menuconfig_example.py <https://github.com/ulfalizer/Kconfiglib/blob/master/examples/menuconfig_example.py>`_ implements a configuration interface that uses notation similar to ``make menuconfig``. It's deliberately kept as simple as possible to demonstrate just the core concepts.
+- `menuconfig_example.py <https://github.com/zephyrproject-rtos/Kconfiglib/blob/master/examples/menuconfig_example.py>`_ implements a configuration interface that uses notation similar to ``make menuconfig``. It's deliberately kept as simple as possible to demonstrate just the core concepts.
 
 Real-world examples
 ~~~~~~~~~~~~~~~~~~~
@@ -743,7 +743,7 @@ The following log should give some idea of the functionality available in the AP
     >>> kconf.write_config("myconfig")  # Save a .config
     >>> ^D
     $ cat myconfig
-    # Generated by Kconfiglib (https://github.com/ulfalizer/Kconfiglib)
+    # Generated by Kconfiglib (https://github.com/zephyrproject-rtos/Kconfiglib)
     CONFIG_64BIT=y
     CONFIG_X86_64=y
     CONFIG_X86=y
@@ -780,10 +780,10 @@ discard ``stderr``.
 The test suite consists of a set of selftests and a set of compatibility tests that
 compare configurations generated by Kconfiglib with
 configurations generated by the C tools, for a number of cases. See
-`testsuite.py <https://github.com/ulfalizer/Kconfiglib/blob/master/testsuite.py>`_
+`testsuite.py <https://github.com/zephyrproject-rtos/Kconfiglib/blob/master/testsuite.py>`_
 for the available options.
 
-The `tests/reltest <https://github.com/ulfalizer/Kconfiglib/blob/master/tests/reltest>`_ script runs the test suite
+The `tests/reltest <https://github.com/zephyrproject-rtos/Kconfiglib/blob/master/tests/reltest>`_ script runs the test suite
 and all the example scripts for both Python 2 and Python 3, verifying that everything works.
 
 Rarely, the output from the C tools is changed slightly (most recently due to a
@@ -803,7 +803,7 @@ Notes
 * This is version 2 of Kconfiglib, which is not backwards-compatible with
   Kconfiglib 1. A summary of changes between Kconfiglib 1 and Kconfiglib
   2 can be found `here
-  <https://github.com/ulfalizer/Kconfiglib/blob/screenshots/kconfiglib-2-changes.txt>`__.
+  <https://github.com/zephyrproject-rtos/Kconfiglib/blob/screenshots/kconfiglib-2-changes.txt>`__.
 
 * I sometimes see people add custom output formats, which is pretty
   straightforward to do (see the implementations of ``write_autoconf()`` and
@@ -837,5 +837,5 @@ Thanks
 License
 -------
 
-See `LICENSE.txt <https://github.com/ulfalizer/Kconfiglib/blob/master/LICENSE.txt>`_. SPDX license identifiers are used in the
+See `LICENSE.txt <https://github.com/zephyrproject-rtos/Kconfiglib/blob/master/LICENSE.txt>`_. SPDX license identifiers are used in the
 source code.
