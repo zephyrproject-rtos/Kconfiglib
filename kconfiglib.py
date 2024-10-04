@@ -1729,6 +1729,50 @@ class Kconfig(object):
 
         return "".join(chunks)
 
+    def write_rustcfg(self, filename=None):
+        r"""
+        Write out rustcfg flags as a response file, matching the format used
+        by include/generated/rustc_cfg in the kernel.
+
+        filename (default: None):
+          Path to write respone file to.
+
+          If None (the default), the path in the environment variable
+          KCONFIG_RUSTCCFG is used if set, and "include/generated/rustc_cfg"
+          otherwise. This is compatible with the C tools.
+        """
+        if filename is None:
+            filename = os.getenv("KCONFIG_RUSTCCFG",
+                                 "include/generated/rustc_cfg")
+
+        if self._write_if_changed(filename, self._rustcfg_contents()):
+            return "Kconfig cfg saved to '{}".format(filename)
+        return "No changes to Kconfig cfg in '{}'".format(filename)
+
+    def _rustcfg_contents(self):
+        chunks = []
+        add = chunks.append
+
+        for sym in self.unique_defined_syms:
+            if not sym.choice and \
+               sym.visibility <= expr_value(sym.rev_dep):
+                continue
+
+            val = sym.str_value
+            if sym.orig_type in _BOOL_TRISTATE:
+                # We do not care about disabled ones, would be a comment
+                if val == "n":
+                    continue
+                add("--cfg={}{}\n"
+                    .format(self.config_prefix, sym.name))
+            elif sym.orig_type == HEX:
+                if not val.lower().startswith("0x"):
+                    val = "0x{}".format(val);
+            add("--cfg={}{}={}\n"
+                .format(self.config_prefix, sym.name, escape(val)))
+
+        return "".join(chunks)
+
     def sync_deps(self, path):
         """
         Creates or updates a directory structure that can be used to avoid
