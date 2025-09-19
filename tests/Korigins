@@ -1,0 +1,26 @@
+config MAIN_FLAG
+	bool
+
+config MAIN_FLAG_DEPENDENCY
+	bool "Main Feature Dependency"
+	default y
+	depends on MAIN_FLAG
+
+config MAIN_FLAG_SELECT
+	bool "Main Feature Dependent"
+	select MAIN_FLAG
+
+choice MULTIPLE_CHOICES
+	prompt "Multiple Choice Option"
+
+config FIRST_CHOICE
+	bool "First Choice Option"
+	depends on !MAIN_FLAG
+
+config SECOND_CHOICE
+	bool "Second Choice Option"
+
+endchoice
+
+config UNSET_FLAG
+	bool "Disabled Feature"
