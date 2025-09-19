@@ -1040,8 +1040,8 @@ g
 """)
 
 
-    print("Testing locations, source/rsource/gsource/grsource, and "
-          "Kconfig.kconfig_filenames")
+    print("Testing locations, origins, source/rsource/gsource/grsource, "
+          "and Kconfig.kconfig_filenames")
 
     def verify_locations(nodes, *expected_locs):
         verify(len(nodes) == len(expected_locs),
@@ -1172,6 +1172,34 @@ tests/Krecursive2:1
             fail("'rsource' with missing file raised wrong exception")
         else:
             fail("'rsource' with missing file did not raise exception")
+
+        # Tests origins
+
+        c = Kconfig("tests/Korigins", warn=False)
+        c.syms["MAIN_FLAG_SELECT"].set_value(2, 'here')
+
+        expected = [
+            ('MAIN_FLAG', ('select', ['MAIN_FLAG_SELECT'])),
+            ('MAIN_FLAG_DEPENDENCY',
+             ('default', (os.path.abspath('Kconfiglib/tests/Korigins'), 6))),
+            ('MAIN_FLAG_SELECT', ('assign', 'here')),
+            ('SECOND_CHOICE', ('default', None)),
+            ('UNSET_FLAG', ('unset', None)),
+        ]
+
+        for node in c.node_iter(True):
+            if not isinstance(node.item, Symbol):
+                continue
+
+            if node.item.origin is None:
+                continue
+
+            exp_name, exp_origin = expected.pop(0)
+            verify_equal(node.item.name, exp_name)
+            verify_equal(node.item.origin, exp_origin)
+
+        if len(expected) != 0:
+            fail("origin test mismatch")
 
     # Test a tricky case involving symlinks. $srctree is tests/symlink, which
     # points to tests/sub/sub, meaning tests/symlink/.. != tests/. Previously,
