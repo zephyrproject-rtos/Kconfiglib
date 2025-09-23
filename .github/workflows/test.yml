@@ -30,36 +30,6 @@ jobs:
         # NOTE: Testing of the Windows targets are currently disabled because
         #       the test script is simply not ready for it.
         target:
-        # Python 3.6
-        - python: '3.6'
-          os: Linux
-          builder: ubuntu-20.04
-        - python: '3.6'
-          os: macOS
-          builder: macos-13
-        # - python: '3.6'
-        #   os: Windows
-        #   builder: windows-2019
-        # Python 3.7
-        - python: '3.7'
-          os: Linux
-          builder: ubuntu-20.04
-        - python: '3.7'
-          os: macOS
-          builder: macos-12
-        # - python: '3.7'
-        #   os: Windows
-        #   builder: windows-2019
-        # Python 3.8
-        - python: '3.8'
-          os: Linux
-          builder: ubuntu-20.04
-        - python: '3.8'
-          os: macOS
-          builder: macos-13
-        # - python: '3.8'
-        #   os: Windows
-        #   builder: windows-2019
         # Python 3.9
         - python: '3.9'
           os: Linux
