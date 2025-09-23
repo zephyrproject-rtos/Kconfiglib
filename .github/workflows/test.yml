@@ -33,7 +33,7 @@ jobs:
         # Python 3.9
         - python: '3.9'
           os: Linux
-          builder: ubuntu-20.04
+          builder: ubuntu-22.04
         - python: '3.9'
           os: macOS
           builder: macos-13
