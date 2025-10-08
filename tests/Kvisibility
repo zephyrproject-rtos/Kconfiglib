@@ -340,3 +340,17 @@ config VISIBLE_IF_M_2
 endif
 
 endmenu
+
+# Conditional dependency (depends on A if B) visibility 
+
+config COND_DEP_Y_IF_N
+    bool "cond dep y if n"
+    depends on y if n
+
+config COND_DEP_N_IF_Y
+    bool "cond dep n if y"
+    depends on n if y
+
+config COND_DEP_MOD_IF_Y
+    tristate "cond dep MOD if y"
+    depends on MOD if y

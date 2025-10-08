@@ -11,6 +11,12 @@ config DEP_SYM
 config DEP_SYM
     depends on !D
 
+config COND_DEP_SYM
+    bool
+    depends on A
+
+config COND_DEP_SYM
+    depends on B && C if D
 
 choice NO_DEP_CHOICE
     bool "no dep. choice"
@@ -27,4 +33,8 @@ endchoice
 
 choice DEP_CHOICE
     depends on C
+endchoice
+
+choice DEP_CHOICE
+    depends on D if E
 endchoice

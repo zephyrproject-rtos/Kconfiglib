@@ -1,0 +1,11 @@
+config A
+    bool
+    depends on B
+
+config B
+    bool
+    depends on A if C
+
+config C
+    bool
+    default n

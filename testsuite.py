@@ -546,6 +546,10 @@ config ADVANCED
 config ADVANCED
 	tristate "prompt 4" if VIS
 	depends on DEP4 && DEP3
+
+config ADVANCED
+	tristate "prompt 5"
+	depends on (!DEP5 || DEP2) && DEP3
 """)
 
     verify_custom_str(c.syms["ADVANCED"], """
@@ -575,6 +579,10 @@ config ADVANCED
 config ADVANCED
 	tristate "prompt 4" if [VIS]
 	depends on [DEP4] && [DEP3]
+
+config ADVANCED
+	tristate "prompt 5"
+	depends on (![DEP5] || [DEP2]) && [DEP3]
 """)
 
 
@@ -582,6 +590,18 @@ config ADVANCED
 config ONLY_DIRECT_DEPS
 	int
 	depends on DEP1 && DEP2
+""")
+
+    verify_str(c.syms["COND_DEPS"], """
+config COND_DEPS
+	bool "cond dep str"
+	depends on !DEP2 || DEP1
+""")
+
+    verify_str(c.syms["MULTI_COND_DEPS"], """
+config MULTI_COND_DEPS
+	bool "cond dep str"
+	depends on (!DEP2 || DEP1) && (!DEP5 || (DEP3 && DEP4))
 """)
 
     verify_str(c.syms["STRING"], """
@@ -799,6 +819,11 @@ config DEP_REM_CORNER_CASES
 	bool
 	default C
 	depends on m && MODULES
+
+config DEP_REM_CORNER_CASES
+	bool
+	default C
+	depends on !(F1 = F2) || (m && MODULES)
 
 config DEP_REM_CORNER_CASES
 	bool
@@ -1318,10 +1343,11 @@ tests/Krecursive2:1
 
     verify_equal(expr_str(c.syms["NO_DEP_SYM"].direct_dep), 'y')
     verify_equal(expr_str(c.syms["DEP_SYM"].direct_dep), "A || (B && C) || !D")
+    verify_equal(expr_str(c.syms["COND_DEP_SYM"].direct_dep), "A || !D || (B && C)")
 
     verify_equal(expr_str(c.named_choices["NO_DEP_CHOICE"].direct_dep), 'y')
     verify_equal(expr_str(c.named_choices["DEP_CHOICE"].direct_dep),
-                 "A || B || C")
+                 "A || B || C || !E || D")
 
 
     print("Testing expr_items()")
@@ -1371,6 +1397,8 @@ tests/Krecursive2:1
 
     verify_deps(c.syms["MULTI_DEF_SYM"], "A", "B", "C", "y")
     verify_deps(c.named_choices["MULTI_DEF_CHOICE"], "A", "B", "C")
+
+    verify_deps(c.syms["COND_DEP_REFS"].nodes[0], "A", "B")
 
 
     print("Testing split_expr()")
@@ -1492,6 +1520,12 @@ tests/Krecursive2:1
     verify_visibility(c.syms["VISIBLE_IF_M"], 0, 1)
     verify_visibility(c.syms["VISIBLE_IF_Y"], 2, 2)
     verify_visibility(c.syms["VISIBLE_IF_M_2"], 0, 1)
+
+    # Verify visibility works with conditional dependencies
+
+    verify_visibility(c.syms["COND_DEP_Y_IF_N"],   2, 2)
+    verify_visibility(c.syms["COND_DEP_N_IF_Y"],   0, 0)
+    verify_visibility(c.syms["COND_DEP_MOD_IF_Y"], 2, 1)
 
     # Verify that string/int/hex symbols with m visibility accept a user value
 
@@ -2423,7 +2457,7 @@ header header from env.
     print("Testing dependency loop detection")
 
     # These are all expected to raise dependency loop errors
-    for i in range(11):
+    for i in range(13):
         filename = "Kconfiglib/tests/Kdeploop" + str(i)
         try:
             Kconfig(filename)

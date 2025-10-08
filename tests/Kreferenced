@@ -61,3 +61,7 @@ choice MULTI_DEF_CHOICE
     depends on C
 
 endchoice
+
+config COND_DEP_REFS
+    bool
+    depends on A if B
