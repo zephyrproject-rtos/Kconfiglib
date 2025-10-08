@@ -50,12 +50,25 @@ config ADVANCED
 
 endmenu
 
+config ADVANCED
+    prompt "prompt 5"
+    depends on DEP2 if DEP5
+
 endif
 
 config ONLY_DIRECT_DEPS
     int
     depends on DEP1
     depends on DEP2
+
+config COND_DEPS
+    bool "cond dep str"
+    depends on DEP1 if DEP2
+
+config MULTI_COND_DEPS
+    bool "cond dep str"
+    depends on DEP1 if DEP2
+    depends on DEP3 && DEP4 if DEP5
 
 config STRING
     def_string "foo"
@@ -215,6 +228,10 @@ config DEP_REM_CORNER_CASES
 config DEP_REM_CORNER_CASES
     default C
     depends on m
+
+config DEP_REM_CORNER_CASES
+    default C
+    depends on m if F1 = F2
 
 config DEP_REM_CORNER_CASES
     default D if A && y
