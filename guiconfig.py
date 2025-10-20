@@ -54,8 +54,8 @@ $srctree is supported through Kconfiglib.
 
 import errno
 import os
-import sys
 import re
+import sys
 
 _PY2 = sys.version_info[0] < 3
 
