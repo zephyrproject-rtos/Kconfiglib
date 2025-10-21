@@ -1202,7 +1202,15 @@ def _leave_menu():
     # Jump to parent menu
     parent = _parent_menu(_cur_menu)
     _shown = _shown_nodes(parent)
-    _sel_node_i = _shown.index(_cur_menu)
+
+    if _cur_menu in _shown:
+        _sel_node_i = _shown.index(_cur_menu)
+    else:
+        # The current menu is not visible in the parent menu. This can happen
+        # when a choice with an associated symbol is extended somewhere
+        # else by an invisible one. In this case, point to node at index 0.
+        _sel_node_i = 0
+
     _cur_menu = parent
 
     # Try to make the menu entry appear on the same row on the screen as it did
