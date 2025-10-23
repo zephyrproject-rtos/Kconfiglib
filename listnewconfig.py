@@ -15,6 +15,7 @@ from __future__ import print_function
 
 import argparse
 import sys
+import textwrap
 
 from kconfiglib import Kconfig, BOOL, TRISTATE, INT, HEX, STRING, TRI_TO_STR
 
@@ -65,10 +66,8 @@ def main():
             if args.show_help:
                 for node in sym.nodes:
                     if node.help is not None:
-                        # Indent by two spaces. textwrap.indent() is not
-                        # available in Python 2 (it's 3.3+).
-                        print("\n".join("  " + line
-                                        for line in node.help.split("\n")))
+                        # Indent by two spaces.
+                        print(textwrap.indent(node.help, "  "))
                         break
 
 
