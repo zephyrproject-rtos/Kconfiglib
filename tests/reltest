@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
-# Runs the test suite and all examples scripts with Python 2 and Python 3,
-# bailing immediately if anything fails. For the examples that aren't tested in
-# the test suite, we just confirm that they at least run.
+# Runs the test suite and all examples scripts, bailing immediately if anything
+# fails. For the examples that aren't tested in  the test suite, we just confirm
+# that they at least run.
 #
 # Should be run from the kernel root with  $ Kconfiglib/tests/reltest
 
@@ -21,7 +21,7 @@ test_script() {
 }
 
 if [ $# == "0" ]; then
-    py_execs="python2 python3"
+    py_execs="python3"
 else
     py_execs=$@
 fi

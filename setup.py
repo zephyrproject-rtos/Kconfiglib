@@ -9,17 +9,11 @@ setuptools.setup(
     # MAJOR.MINOR.PATCH, per http://semver.org
     version="14.1.1a4",
     description="A flexible Python Kconfig implementation",
-
-    # Make sure that README.rst decodes on Python 3 in environments that use
+    # Make sure that README.rst decodes correctly in environments that use
     # the C locale (which implies ASCII), by explicitly giving the encoding.
-    #
-    # io.open() has the 'encoding' parameter on both Python 2 and 3. open()
-    # doesn't have it on Python 2. This lets us use the same code for both.
     long_description=io.open(
-        os.path.join(os.path.dirname(__file__), "README.rst"),
-        encoding="utf-8"
+        os.path.join(os.path.dirname(__file__), "README.rst"), encoding="utf-8"
     ).read(),
-
     url="https://github.com/zephyrproject-rtos/Kconfiglib",
     author='Zephyr Project',
     author_email="ci@zephyrproject.org",
@@ -64,9 +58,7 @@ setuptools.setup(
     # Note: windows-curses is not automatically installed on Windows anymore,
     # because it made Kconfiglib impossible to install on MSYS2 with pip
 
-    # Needs support for unnumbered {} in format() and argparse
-    python_requires=">=2.7,!=3.0.*,!=3.1.*",
-
+    python_requires=">=3.9",
     project_urls={
         "GitHub repository": "https://github.com/zephyrproject-rtos/Kconfiglib",
         "Examples": "https://github.com/zephyrproject-rtos/Kconfiglib/tree/master/examples",
@@ -80,16 +72,7 @@ setuptools.setup(
         "License :: OSI Approved :: ISC License (ISCL)",
         "Operating System :: POSIX",
         "Operating System :: Microsoft :: Windows",
-        "Programming Language :: Python :: 2",
-        "Programming Language :: Python :: 2.7",
         "Programming Language :: Python :: 3",
-        "Programming Language :: Python :: 3.2",
-        "Programming Language :: Python :: 3.3",
-        "Programming Language :: Python :: 3.4",
-        "Programming Language :: Python :: 3.5",
-        "Programming Language :: Python :: 3.6",
-        "Programming Language :: Python :: 3.7",
-        "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3.10",
         "Programming Language :: Python :: 3.11",

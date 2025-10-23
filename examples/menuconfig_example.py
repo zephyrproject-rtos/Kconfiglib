@@ -130,11 +130,6 @@ from kconfiglib import Kconfig, \
                        TRI_TO_STR
 
 
-# Python 2/3 compatibility hack
-if sys.version_info[0] < 3:
-    input = raw_input
-
-
 def indent_print(s, indent):
     print(indent*" " + s)
 
