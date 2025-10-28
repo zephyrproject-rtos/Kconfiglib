@@ -32,11 +32,6 @@ import sys
 from kconfiglib import Symbol, Choice, BOOL, TRISTATE, HEX, standard_kconfig
 
 
-# Python 2/3 compatibility hack
-if sys.version_info[0] < 3:
-    input = raw_input
-
-
 def _main():
     # Earlier symbols in Kconfig files might depend on later symbols and become
     # visible if their values change. This flag is set to True if the value of

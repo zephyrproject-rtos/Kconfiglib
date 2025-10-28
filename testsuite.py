@@ -2699,16 +2699,12 @@ config PRINT_ME_TOO
 
     sys.path.pop(0)
 
-    # This test can fail on older Python 3.x versions, because they don't
-    # preserve dict insertion order during iteration. The output is still
-    # correct, just different.
-    if not (3, 0) <= sys.version_info <= (3, 5):
-        print("Testing KCONFIG_WARN_UNDEF")
+    print("Testing KCONFIG_WARN_UNDEF")
 
-        os.environ["KCONFIG_WARN_UNDEF"] = "y"
-        c = Kconfig("Kconfiglib/tests/Kundef", warn_to_stderr=False)
+    os.environ["KCONFIG_WARN_UNDEF"] = "y"
+    c = Kconfig("Kconfiglib/tests/Kundef", warn_to_stderr=False)
 
-        verify_equal("\n".join(c.warnings), """
+    verify_equal("\n".join(c.warnings), """
 warning: the int symbol INT (defined at Kconfiglib/tests/Kundef:8) has a non-int range [UNDEF_2 (undefined), 8 (undefined)]
 warning: undefined symbol UNDEF_1:
 
@@ -2747,7 +2743,7 @@ menu "menu"
 	visible if UNDEF_3
 """[1:-1])
 
-        os.environ.pop("KCONFIG_WARN_UNDEF")
+    os.environ.pop("KCONFIG_WARN_UNDEF")
 
 
     print("\nAll selftests passed\n" if all_passed else
@@ -2760,8 +2756,8 @@ def run_compatibility_tests():
 
     # Referenced inside the kernel Kconfig files.
     #
-    # The str() makes the type of the value 'str' on both Python 2 and Python 3,
-    # which is nice for some later dictionary key sanity checks.
+    # The str() makes the type of the value 'str', which is nice for some later
+    # dictionary key sanity checks.
 
     os.environ["KERNELVERSION"] = str(
         subprocess.check_output("make kernelversion", shell=True)
@@ -2932,13 +2928,10 @@ def test_sanity(arch, srcarch):
 
     kconf.write_autoconf("/dev/null")
 
-    # No tempfile.TemporaryDirectory in Python 2
-    tmpdir = tempfile.mkdtemp()
-    kconf.sync_deps(os.path.join(tmpdir, "deps"))  # Create
-    kconf.sync_deps(os.path.join(tmpdir, "deps"))  # Update
-    shutil.rmtree(tmpdir)
+    with tempfile.TemporaryDirectory() as tmpdir:
+        kconf.sync_deps(os.path.join(tmpdir, "deps"))  # Create
+        kconf.sync_deps(os.path.join(tmpdir, "deps"))  # Update
 
-    # Python 2/3 compatible
     for key, sym in kconf.syms.items():
         verify(isinstance(key, str), "weird key '{}' in syms dict".format(key))
 
