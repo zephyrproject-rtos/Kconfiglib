@@ -3151,6 +3151,8 @@ class Kconfig(object):
                 node.dep = self._make_and(node.dep,
                                           self._expect_expr_and_eol())
 
+            elif t0 is _T_TRANSITIONAL:
+                continue
             elif t0 is _T_HELP:
                 self._parse_help(node)
 
@@ -7010,9 +7012,10 @@ except AttributeError:
     _T_SOURCE,
     _T_STRING,
     _T_TRISTATE,
+    _T_TRANSITIONAL,
     _T_UNEQUAL,
     _T_VISIBLE,
-) = range(1, 51)
+) = range(1, 52)
 
 # Keyword to token map, with the get() method assigned directly as a small
 # optimization
@@ -7059,6 +7062,7 @@ _get_keyword = {
     "source":         _T_SOURCE,
     "string":         _T_STRING,
     "tristate":       _T_TRISTATE,
+    "transitional":   _T_TRANSITIONAL,
     "visible":        _T_VISIBLE,
 }.get
 
