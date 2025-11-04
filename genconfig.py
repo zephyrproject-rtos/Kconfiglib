@@ -131,23 +131,14 @@ only supported for backwards compatibility).
         kconf.sync_deps(args.sync_deps)
 
     if args.file_list is not None:
-        with _open_write(args.file_list) as f:
+        with open(args.file_list, "w", encoding="utf-8") as f:
             for path in kconf.kconfig_filenames:
                 f.write(path + "\n")
 
     if args.env_list is not None:
-        with _open_write(args.env_list) as f:
+        with open(args.env_list, "w", encoding="utf-8") as f:
             for env_var in kconf.env_vars:
                 f.write("{}={}\n".format(env_var, os.environ[env_var]))
-
-
-def _open_write(path):
-    # Python 2/3 compatibility. io.open() is available on both, but makes
-    # write() expect 'unicode' strings on Python 2.
-
-    if sys.version_info[0] < 3:
-        return open(path, "w")
-    return open(path, "w", encoding="utf-8")
 
 
 if __name__ == "__main__":
