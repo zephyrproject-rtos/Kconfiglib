@@ -2016,6 +2016,18 @@ tests/Krecursive2:1
 #define CONFIG_G 7
 """[1:])
 
+    c.write_rustcfg(config_test_file)
+    verify_file_contents(config_test_file, """
+--cfg=CONFIG_O=0
+--cfg=CONFIG_R=1
+--cfg=CONFIG_D=2
+--cfg=CONFIG_E=3
+--cfg=CONFIG_R2=4
+--cfg=CONFIG_I=5
+--cfg=CONFIG_N=6
+--cfg=CONFIG_G=7
+"""[1:])
+
     # Differs from defaults
     c.syms["O"].set_value("-1")
     c.syms["R"].set_value("-1")
