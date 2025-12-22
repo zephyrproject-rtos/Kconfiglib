@@ -1863,6 +1863,7 @@ def _jump_to_dialog(_=None):
     # to fix it.
 
     global _jump_to_tree
+    global _jump_to_show_all_var
 
     def search(_=None):
         _update_jump_to_matches(msglabel, entry.get())
@@ -1919,6 +1920,11 @@ def _jump_to_dialog(_=None):
 
     ttk.Button(dialog, text="Search", command=search) \
         .grid(column=1, row=1, padx="0 .1c", pady="0 .1c")
+
+    _jump_to_show_all_var = BooleanVar()
+    ttk.Checkbutton(dialog, text="Show all", variable=_jump_to_show_all_var,
+                    command=search) \
+        .grid(column=1, row=2, sticky="nsew", padx="0 .1c", pady="0 .1c")
 
     msglabel = ttk.Label(dialog)
     msglabel.grid(column=0, row=2, sticky="w", pady="0 .1c")
@@ -2042,13 +2048,17 @@ def _update_jump_to_display():
     node_str = _node_str
     img_tag = _img_tag
     visible = _visible
+    jump_to_matches = []
     for node in _jump_to_matches:
+        if not (_jump_to_show_all_var.get() or visible(node)):
+            continue
+        jump_to_matches.append(node)
         item(id_(node),
              text=node_str(node),
              tags=img_tag(node) if visible(node) else
                  img_tag(node) + " invisible")
 
-    _jump_to_tree.set_children("", *map(id, _jump_to_matches))
+    _jump_to_tree.set_children("", *map(id, jump_to_matches))
 
 
 def _jump_to(node):
