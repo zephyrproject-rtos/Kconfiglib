@@ -34,9 +34,10 @@ jobs:
         - python: '3.9'
           os: Linux
           builder: ubuntu-22.04
-        - python: '3.9'
-          os: macOS
-          builder: macos-13
+        #  macos-13 runner is retired, macos-14 doesn't include Python 3.9 (yet) 
+        # - python: '3.9'
+        #   os: macOS
+        #   builder: macos-13
         # - python: '3.9'
         #   os: Windows
         #   builder: windows-2019
