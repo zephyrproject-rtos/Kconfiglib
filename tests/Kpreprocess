@@ -115,11 +115,14 @@ space-var-res = $(foo bar)
 
 # Built-in functions
 
-# Expands to "baz qaz"
+# Expands to "baz qaz" on sh-like environments
 shell-res = $(shell,false && echo foo bar || echo baz qaz)
 
+# Expands to "baz qaz" on Windows
+shell-res-win = $(shell,if "x"=="y" (echo foo bar) else (echo baz qaz))
+
 # Warns about output on stderr, expands to nothing
-shell-stderr-res := $(shell,echo message on stderr >&2)
+shell-stderr-res := $(shell,echo message on stderr>&2)
 
 # Nested parens in macro call. Should give a single argument. Test it with
 # $(shell) to get a free argument number check.

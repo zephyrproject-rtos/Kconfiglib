@@ -37,6 +37,7 @@
 import difflib
 import errno
 import os
+import platform
 import re
 import shutil
 import subprocess
@@ -60,6 +61,7 @@ def shell(cmd):
 
 
 all_passed = True
+windows = platform.system() == 'Windows'
 
 
 def fail(msg=None):
@@ -105,7 +107,10 @@ def run_tests():
             return
 
     run_selftests()
-    run_compatibility_tests()
+    if windows:
+        print("Skipping compatibility tests (not supported on Windows).")
+    else:
+        run_compatibility_tests()
 
 
 def run_selftests():
@@ -1231,13 +1236,16 @@ tests/Krecursive2:1
     # using 'rsource' from a file sourced with an absolute path triggered an
     # unsafe relpath() with tests/symlink/.. in it, crashing.
 
-    os.environ["srctree"] = "Kconfiglib/tests/symlink"
-    os.environ["KCONFIG_SYMLINK_2"] = os.path.abspath(
-        "Kconfiglib/tests/sub/Kconfig_symlink_2")
-    if not os.path.isabs(
-        Kconfig("Kconfig_symlink_1").syms["FOUNDME"].nodes[0].filename):
+    if windows:
+        print("Skipping symlink test (not supported on Windows).")
+    else:
+        os.environ["srctree"] = "Kconfiglib/tests/symlink"
+        os.environ["KCONFIG_SYMLINK_2"] = os.path.abspath(
+            "Kconfiglib/tests/sub/Kconfig_symlink_2")
+        if not os.path.isabs(
+            Kconfig("Kconfig_symlink_1").syms["FOUNDME"].nodes[0].filename):
 
-        fail("Symlink + rsource issues")
+            fail("Symlink + rsource issues")
 
 
     print("Testing Kconfig.node_iter()")
@@ -2658,21 +2666,27 @@ config PRINT_ME_TOO
 
     verify_variable("space-var-res", "$(foo bar)", "value", True)
 
-    verify_variable("shell-res",
-                    "$(shell,false && echo foo bar || echo baz qaz)",
-                    "baz qaz",
-                    True)
+    if windows:
+        verify_variable("shell-res-win",
+                        '$(shell,if "x"=="y" (echo foo bar) else (echo baz qaz))',
+                        "baz qaz",
+                        True)
+    else:
+        verify_variable("shell-res",
+                        "$(shell,false && echo foo bar || echo baz qaz)",
+                        "baz qaz",
+                        True)
 
     verify_variable("shell-stderr-res", "", "", False)
 
     verify_variable("parens-res",
                     "pre-$(shell,echo '(a,$(b-char),(c,d),e)')-post",
-                    "pre-(a,b,(c,d),e)-post",
+                    "pre-(a,b,(c,d),e)-post" if not windows else "pre-'(a,b,(c,d),e)'-post",
                     True)
 
     verify_variable("location-res",
-                    "Kconfiglib/tests/Kpreprocess:129",
-                    "Kconfiglib/tests/Kpreprocess:129",
+                    "Kconfiglib/tests/Kpreprocess:132",
+                    "Kconfiglib/tests/Kpreprocess:132",
                     False)
 
     verify_variable("warning-res", "", "", False)
@@ -2691,8 +2705,8 @@ config PRINT_ME_TOO
 
     # Check that the expected warnings were generated
     verify_equal(c.warnings, [
-        "Kconfiglib/tests/Kpreprocess:122: warning: 'echo message on stderr >&2' wrote to stderr: message on stderr",
-        "Kconfiglib/tests/Kpreprocess:134: warning: a warning"
+        "Kconfiglib/tests/Kpreprocess:125: warning: 'echo message on stderr>&2' wrote to stderr: message on stderr",
+        "Kconfiglib/tests/Kpreprocess:137: warning: a warning"
     ])
 
 
