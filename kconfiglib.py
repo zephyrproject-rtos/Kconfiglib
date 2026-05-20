@@ -1461,7 +1461,7 @@ class Kconfig(object):
             # instead, to avoid accessing the internal _write_to_conf variable
             # (though it's likely to keep working).
             val = sym.str_value
-            if not sym._write_to_conf:
+            if not sym._write_to_conf or sym.is_transitional:
                 continue
 
             if sym.orig_type in _BOOL_TRISTATE:
@@ -1795,7 +1795,7 @@ class Kconfig(object):
             # n tristate values do not get written to auto.conf and autoconf.h,
             # making a missing symbol logically equivalent to n
 
-            if sym._write_to_conf:
+            if sym._write_to_conf and not sym.is_transitional:
                 if sym._old_val is None and \
                    sym.orig_type in _BOOL_TRISTATE and \
                    val == "n":
@@ -3296,6 +3296,13 @@ class Kconfig(object):
 
                 node.item.is_optional = True
 
+            elif t0 is _T_TRANSITIONAL:
+                if node.item.__class__ is not Symbol:
+                    self._parse_error(
+                        "'transitional' is only valid for symbols")
+
+                node.item.is_transitional = True
+
             else:
                 # Reuse the tokens for the non-property line later
                 self._reuse_tokens = True
@@ -4248,6 +4255,14 @@ class Symbol(object):
       effect internally (except when printing symbols), but can be checked by
       scripts.
 
+    is_transitional:
+      True if the symbol has the 'transitional' attribute. Transitional symbols
+      are processed processed during configuration but omitted from newly
+      written .config files. Transitional symbols are useful for backward
+      compatibility during config option migrations - they allow olddefconfig
+      to process existing .config files while ensuring the old option doesn't
+      appear in new configurations.
+
     is_constant:
       True if the symbol is a constant (quoted) symbol.
 
@@ -4272,6 +4287,7 @@ class Symbol(object):
         "implies",
         "is_allnoconfig_y",
         "is_constant",
+        "is_transitional",
         "kconfig",
         "name",
         "nodes",
@@ -4592,7 +4608,7 @@ class Symbol(object):
         # _write_to_conf is determined when the value is calculated. This is a
         # hidden function call due to property magic.
         val = self.str_value
-        if not self._write_to_conf:
+        if not self._write_to_conf or self.is_transitional:
             return ""
 
         if self.orig_type in _BOOL_TRISTATE:
@@ -4789,6 +4805,9 @@ class Symbol(object):
             if self.is_allnoconfig_y:
                 add("allnoconfig_y")
 
+            if self.is_transitional:
+                add("transitional")
+
             if self is self.kconfig.defconfig_list:
                 add("is the defconfig_list symbol")
 
@@ -4873,6 +4892,7 @@ class Symbol(object):
         # Symbol gets a .config entry.
 
         self.is_allnoconfig_y = \
+        self.is_transitional = \
         self._was_set = \
         self._write_to_conf = False
 
@@ -5933,6 +5953,9 @@ class MenuNode(object):
                             self.orig_prompt[1])
 
         if sc.__class__ is Symbol:
+            if sc.is_transitional:
+                indent_add("transitional")
+
             if sc.is_allnoconfig_y:
                 indent_add("option allnoconfig_y")
 
@@ -6385,6 +6408,10 @@ def _visibility(sc):
     # the values a user can set for them, corresponding to the visibility in
     # e.g. 'make menuconfig'. This function calculates the visibility for the
     # Symbol or Choice 'sc' -- the logic is nearly identical.
+
+    # Transitional symbols are always visible
+    if sc.__class__ is Symbol and sc.is_transitional:
+        return 2
 
     vis = 0
 
@@ -6974,10 +7001,11 @@ except AttributeError:
     _T_SELECT,
     _T_SOURCE,
     _T_STRING,
+    _T_TRANSITIONAL,
     _T_TRISTATE,
     _T_UNEQUAL,
     _T_VISIBLE,
-) = range(1, 51)
+) = range(1, 52)
 
 # Keyword to token map, with the get() method assigned directly as a small
 # optimization
@@ -7023,6 +7051,7 @@ _get_keyword = {
     "select":         _T_SELECT,
     "source":         _T_SOURCE,
     "string":         _T_STRING,
+    "transitional":   _T_TRANSITIONAL,
     "tristate":       _T_TRISTATE,
     "visible":        _T_VISIBLE,
 }.get
